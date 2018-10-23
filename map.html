@@ -6,27 +6,17 @@
 -->
 <html>
 	<head>
-		<title>Rachel Saunders</title>
+		<title>Work Samples - Rachel Saunders</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta charset="utf-8">
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
-	<body class="is-preload">
+	<body >
 
 		<!-- Wrapper -->
-			<div id="wrapper" class="fade-in">
-
-				<!-- Intro -->
-					<div id="intro">
-						<h1>Rachel Saunders<br />
-						</h1>
-						<p>Creating bridges of understanding<br />
-						through geospatial technologies.</p>
-						<ul class="actions">
-							<li><a href="#header" class="button icon solo fa-arrow-down scrolly">Continue</a></li>
-						</ul>
-					</div>
+			<div id="wrapper">
 
 				<!-- Header -->
 					<header id="header">
@@ -36,15 +26,15 @@
 				<!-- Nav -->
 					<nav id="nav">
 						<ul class="links">
-							<li class="active"><a href="index.html">Personal Biography</a></li>
+							<li><a href="index.html">Personal Biography</a></li>
 							<li><a href="generic.html">Education</a></li>
 							<li><a href="elements.html">Portfolio</a></li>
-							<li><a href="map.html">Map</a></li>	
+							<li class="active"><a href="map.html">Map</a></li>		
 						</ul>
 						<ul class="icons">
 							<li><a href="https://www.facebook.com/turtelshell?lst=1782217122%3A1782217122%3A1539732500" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 							<li><a href="https://www.instagram.com/rachelsaunders96/?hl=en" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="https://www.linkedin.com/in/rcsaunders96/" class="icon fa-linkedin-square" target="_blank"><span class="label">Linkedin</span></a></li>
+							<li><a href="https://www.linkedin.com/in/rcsaunders96/" target="_blank" class="icon fa-linkedin-square"><span class="label">Linkedin</span></a></li>
 						</ul>
 					</nav>
 
@@ -52,48 +42,72 @@
 					<div id="main">
 
 						<!-- Featured Post -->
-							<article class="post featured">
+						<!--	<article class="post featured">
 								<header class="major">
 									<span class="date">October 23, 2018</span>
-									<h2><a href="#">About<br />
+									<h2><a href="#">Map<br />
 									</a></h2>
+									<p><br />
+									<br />
+									</p>
 								</header>
-
-					<!-- Banner -->
-								<section id="banner">
-									<div class="content">
-										<header>
-											<!--h1>Hi, I’m Editorial<br />
-											by HTML5 UP</h1-->
-											<!--p>A free and fully responsive site template</p-->
-										</header>
-										<p>Rachel Saunders is an activist for environmental and social justice, empowered by using GIS and geospatial technologies. Her career began at Stetson University where she obtained her BS in Environmental Science. While she attended Stetson, she worked with the Center for Community Engagement as the Marketing Outreach Director. A major issue that faced the DeLand community was rooted deep within the town’s past of slavery and white power. Where today, minority groups still feel excluded from the main downtown area, an area that has white imperialist paintings displayed. Although these paintings are historical and represent the history of the town, they also promote an invisible fear and persecution that remains hidden within cracks of the buildings and the roads. In her position she worked closely with her supervisors to create a new dialogue that discussed the history of the town and issues that they still face today; brining to light racism, sexism, and oppression so that conversation can be created to work towards creating a more inclusive future.
-										<!--ul class="actions">
-											<li><a href="#" class="button big">Learn More</a></li>
-										</ul-->
-									</div>
-									<span class="image object">
-										<img src="images/me.JPG" alt="Picture of Rachel Saunders" />
-									</span>
-								</section>
-
-						<!--end of Banner--> 
-						<!--Banner sections sourced from HTML5 UP Editorial https://html5up.net/editorial-->
-
-								<p> 	
-									Rachel’s passion for the environment manifested inside of her at a very young age. Growing up she frequently visited her marine biologist uncle who opened her eyes to a world both under the sea and above. One where the interconnectivity of all living things created a seamless and harmonious balance. In college she explored these intricacies through both her education and field experience. Studying everything from sea level rise to politics she discovered that her passion was in her voice and GIS. She believes that analytical maps display thought provoking visualizations that allow her to create bridges of dialogue between both sides of the conversation, allowing for healthy debate and disagreements. <br/>
-										
-									<br/>Currently, she is working on her MS in Geospatial Technologies at the University of Washington Tacoma where she hopes to further her passion’s in social and environmental justice. 
-								</p>
-
 								<a href="#" class="image main"><img src="images/" alt="" /></a>
-								<!--ul class="actions special">
-									<li><a href="#" class="button large">Full Story</a></li>
-								</ul-->
-							</article>
+
+							</article> -->
+
+						<!-- Box -->
+									<h2>Map of the University of Washington Tacoma</h2>
+										<p>The University of Washington Tacoma is my marker location because it is my current place in life. This is where my journey has taken me right now, and it is important to mark and remember that. </p>
+
+									<style>
+										#map {
+											width: 100%;
+											height: 550px;
+											background-color: grey;
+										}
+									</style>
+									<div class="box" id='map'>
+										<script>
+											function initMap () {
+
+												var UWT = {lat: 47.245381, lng: -122.437661};
+												
+												var map = new google.maps.Map(document.getElementById('map'),{
+													zoom: 15,
+													center: UWT,
+													disableDefaultUI: true,
+													zoomControl: true,
+													streetViewControl: true,
+													mapTypeControl: true,
+													mapTypeControlOptions: {
+														style: google.maps.MapTypeControlStyle.HORIZONTAL_BAR,
+														mapTypeIds: ['terrain', 'satellite']
+												
+
+													}
+													
+
+												});
+
+												var marker = new google.maps.Marker({
+													position: UWT,
+													map: map
+
+												});
+
+
+												}
+											
+										</script>
+										<script async defer
+											src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDH9Cv0ywdr5Nco9XhwJ9FI23Ny6MYFLxQ&callback=initMap">
+										</script>
+									</div>
+
+								
 
 						<!-- Posts -->
-							<!--<section class="posts">
+						<!--	<section class="posts">
 								<article>
 									<header>
 										<span class="date">April 24, 2017</span>
@@ -166,26 +180,26 @@
 										<li><a href="#" class="button">Full Story</a></li>
 									</ul>
 								</article>
-							</section>-->
+							</section> -->
 
-						<!--Footer -->
-							<!--footer>
-								<div class="pagination">
-									<a href="#" class="previous">Prev</a>
-									<a href="#" class="page active">1</a>
+						<!-- Footer -->
+							<!--<footer>-->
+								<!--<div class="pagination">-->
+									<!--<a href="#" class="previous">Prev</a>-->
+									<!--<a href="#" class="page active">1</a>
 									<a href="#" class="page">2</a>
 									<a href="#" class="page">3</a>
 									<span class="extra">&hellip;</span>
 									<a href="#" class="page">8</a>
 									<a href="#" class="page">9</a>
 									<a href="#" class="page">10</a>
-									<a href="#" class="next">Next</a>
-								</div>
+									<a href="#" class="next">Next</a>-->
+								<!--</div>
 							</footer>-->
 
 					</div>
 
-			<!-- Footer -->
+				<!-- Footer -->
 					<footer id="footer">
 						<section>
 							<form method="post" action="#">
@@ -227,11 +241,12 @@
 							<ul class="icons">
 							<li><a href="https://www.facebook.com/turtelshell?lst=1782217122%3A1782217122%3A1539732500" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
 							<li><a href="https://www.instagram.com/rachelsaunders96/?hl=en" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-							<li><a href="https://www.linkedin.com/in/rcsaunders96/" target="_blank" class="icon fa-linkedin-square"><span class="label">Linkedin</span></a></li>
+							<li><a href="https://www.linkedin.com/in/rcsaunders96/" class="icon fa-linkedin-square" target="_blank"><span class="label">Linkedin</span></a></li>
 							</ul>
 							</section>
 						</section>
 					</footer>
+
 				<!-- Copyright -->
 					<div id="copyright">
 						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
