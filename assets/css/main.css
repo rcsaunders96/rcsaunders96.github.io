@@ -3207,7 +3207,7 @@ input, select, textarea {
 			width: 100%;
 			height: 100%;
 			background-color: #212931;
-			background-image: url("../../images/forest.JPG"), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../../images/forest.JPG");
+			background-image: url("../../images/bridge.JPG"), linear-gradient(0deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url("../../images/bg.jpg");
 			background-size: auto,								auto,														100% auto;
 			background-position: center,								center,														top center;
 			background-repeat: repeat,								no-repeat,													no-repeat;
@@ -3257,7 +3257,8 @@ input, select, textarea {
 /* Intro */
 
 	#intro {
-		color: #ffffff;
+		color: white;
+		text-shadow: black 2px 0 15px;
 		padding: 8rem 4rem 6rem 4rem ;
 		-moz-align-items: center;
 		-webkit-align-items: center;
@@ -3547,6 +3548,7 @@ input, select, textarea {
 			padding: 1rem 1.75rem;
 			text-transform: uppercase;
 			visibility: visible;
+			text-shadow: black 2px 0 15px;
 		}
 
 			#header .logo:hover {
@@ -3572,6 +3574,7 @@ input, select, textarea {
 				#header .logo {
 					font-size: 1.75rem;
 					border-width: 3px !important;
+
 				}
 
 		}
@@ -4355,9 +4358,9 @@ input, select, textarea {
 		}
 
 	#copyright {
-		color: #ffffff;
+		color: black;
 		position: relative;
-		color: rgba(255, 255, 255, 0.25);
+		color: black;
 		cursor: default;
 		font-family: "Source Sans Pro", Helvetica, sans-serif;
 		font-size: 0.8rem;
@@ -4373,11 +4376,11 @@ input, select, textarea {
 	}
 
 		#copyright input, #copyright select, #copyright textarea {
-			color: #ffffff;
+			color: black;
 		}
 
 		#copyright a {
-			color: #ffffff;
+			color: black;
 			border-bottom-color: rgba(255, 255, 255, 0.5);
 		}
 
@@ -4387,24 +4390,24 @@ input, select, textarea {
 			}
 
 		#copyright strong, #copyright b {
-			color: #ffffff;
+			color: black;
 		}
 
 		#copyright h1, #copyright h2, #copyright h3, #copyright h4, #copyright h5, #copyright h6 {
-			color: #ffffff;
+			color: black;
 		}
 
 		#copyright blockquote {
-			border-left-color: #ffffff;
+			border-left-color: black;
 		}
 
 		#copyright code {
 			background: rgba(255, 255, 255, 0.075);
-			border-color: #ffffff;
+			border-color: black;
 		}
 
 		#copyright hr {
-			border-bottom-color: #ffffff;
+			border-bottom-color: black;
 		}
 
 		#copyright a {
@@ -4651,3 +4654,130 @@ input, select, textarea {
 		}
 
 	}
+
+/*Code obtained from HTML5 UP Massively https://html5up.net/massively*/
+
+
+/* Everything below this line is sourced from HTML5 UP Editorial https://html5up.net/editorial*/
+
+		.features article .content {
+				-moz-flex-grow: 1;
+				-webkit-flex-grow: 1;
+				-ms-flex-grow: 1;
+				flex-grow: 1;
+				-moz-flex-shrink: 1;
+				-webkit-flex-shrink: 1;
+				-ms-flex-shrink: 1;
+				flex-shrink: 1;
+				width: 100%;
+			}
+
+		.features article .content > :last-child {
+					margin-bottom: 0;
+				}
+
+/* Banner */
+
+	#banner {
+		padding: 6em 0 4em 0 ;
+		display: -moz-flex;
+		display: -webkit-flex;
+		display: -ms-flex;
+		display: flex;
+	}
+
+		#banner h1 {
+			margin-top: -0.125em;
+		}
+
+		#banner .content {
+			-moz-flex-grow: 1;
+			-webkit-flex-grow: 1;
+			-ms-flex-grow: 1;
+			flex-grow: 1;
+			-moz-flex-shrink: 1;
+			-webkit-flex-shrink: 1;
+			-ms-flex-shrink: 1;
+			flex-shrink: 1;
+			width: 50%;
+		}
+
+		#banner .image {
+			-moz-flex-grow: 0;
+			-webkit-flex-grow: 0;
+			-ms-flex-grow: 0;
+			flex-grow: 0;
+			-moz-flex-shrink: 0;
+			-webkit-flex-shrink: 0;
+			-ms-flex-shrink: 0;
+			flex-shrink: 0;
+			display: block;
+			margin: 0 0 2em 4em;
+			width: 50%;
+		}
+
+			#banner .image img {
+				height: 100%;
+				-moz-object-fit: cover;
+				-webkit-object-fit: cover;
+				-ms-object-fit: cover;
+				object-fit: cover;
+				-moz-object-position: center;
+				-webkit-object-position: center;
+				-ms-object-position: center;
+				object-position: center;
+				width: 100%;
+			}
+
+		@media screen and (orientation: portrait) {
+
+			#banner {
+				-moz-flex-direction: column-reverse;
+				-webkit-flex-direction: column-reverse;
+				-ms-flex-direction: column-reverse;
+				flex-direction: column-reverse;
+			}
+
+				#banner h1 br {
+					display: none;
+				}
+
+				#banner .content {
+					-moz-flex-grow: 0;
+					-webkit-flex-grow: 0;
+					-ms-flex-grow: 0;
+					flex-grow: 0;
+					-moz-flex-shrink: 0;
+					-webkit-flex-shrink: 0;
+					-ms-flex-shrink: 0;
+					flex-shrink: 0;
+					width: 100%;
+				}
+
+				#banner .image {
+					-moz-flex-grow: 0;
+					-webkit-flex-grow: 0;
+					-ms-flex-grow: 0;
+					flex-grow: 0;
+					-moz-flex-shrink: 0;
+					-webkit-flex-shrink: 0;
+					-ms-flex-shrink: 0;
+					flex-shrink: 0;
+					margin: 0 0 4em 0;
+					height: 25em;
+					max-height: 50vh;
+					min-height: 18em;
+					width: 100%;
+				}
+
+		}
+
+		@media screen and (orientation: portrait) and (max-width: 480px) {
+
+			#banner .image {
+				max-height: 35vh;
+			}
+
+		}
+
+/*End of content sourced from HTML5 UP Editorial*/
