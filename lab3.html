@@ -45,13 +45,18 @@
 		//Thanks to https://catalog.data.gov/dataset?q=boundary&sort=views_recent+desc&organization=fairfax-county-virginia&res_format=GeoJSON&as_sfid=AAAAAAXXKmB4L-JH1q8A-JULTWdhOyK2Ci-pM6rbheFEMwsMbLSustazvPXxZb70W0PizrbpdB21Y4uRit5f8aIE8z8sRqtYnsyypFk-6QN4i5ktmx3MqOcZ7YwB5Ud9rem-_Jk%3D&as_fid=648b7050711bf4f9f3d018549ca3bbd9646fb126&ext_location=&ext_bbox=&ext_prev_extent=-142.03125%2C8.754794702435618%2C-59.0625%2C61.77312286453146
 		$.getJSON("JSON/Fairfax_County_Border.geojson", function(data){
 			//add GeoJSON layer to the map once the file is loaded 
-			var datalayer = L.geoJson(data,{
+			var boundary = L.geoJson(data,{
 			onEachFeature: function(feature, featureLayer) {
 				//for each feature, add the propertiesto the popup
 				featureLayer.bindPopup(feature.properties.NAME);
 			}
 		});
+
+		map.addLayer(boundary);
+
 		});
+
+		
 
 
 	</script> 
