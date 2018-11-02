@@ -76,7 +76,7 @@
 			var schools = L.geoJson(data,{
 			onEachFeature: function(feature, featureLayer) {
 				//for each feature, add the propertiesto the popup
-				featureLayer.bindPopup("<p>Feature: "+feature.properties.Feature+"<br>SCHOOL_NAME: "+feature.propertiess.SCHOOL_NAME+"</p>");
+				featureLayer.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
 			}
 		});
 
