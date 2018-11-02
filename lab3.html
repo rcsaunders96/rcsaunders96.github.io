@@ -96,7 +96,16 @@
 
 		map.addLayer(landfill);	
 
-		});	
+		});
+
+		//custom icon for landfill
+		var dumptruck = L.icon({
+			iconRef: "JSON/dump-icon-21.jpg",
+			iconsize: [38, 95], 
+		});
+
+		//create marker object, pass custom icon as option, add to map
+		var marker = L.marker([landfill], {icon: dumptruck}).addTo(map);
 
 
 	</script> 
