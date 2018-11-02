@@ -62,7 +62,7 @@
 			var tax = L.geoJson(data,{
 			onEachFeature: function(feature, featureLayer) {
 				//for each feature, add the propertiesto the popup
-				featureLayer.bindPopup(feature.properties.TILE_NAME);
+				featureLayer.bindPopup(feature.properties.QUAD_NAME);
 			}
 		});
 
