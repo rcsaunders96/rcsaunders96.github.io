@@ -84,6 +84,18 @@
 
 		});
 
+		//add Landfills to map
+		$.getJSON("JSON/Landfills.geojson", function(data){
+			//add GeoJSON layer to the map once the file is loaded 
+			var landfill = L.geoJson(data,{
+			onEachFeature: function(feature, featureLayer) {
+				//for each feature, add the propertiesto the popup
+				featureLayer.bindPopup(feature.properties.Feature);
+			}
+		});
+
+		map.addLayer(landfill);		
+
 
 	</script> 
 
