@@ -57,7 +57,7 @@
 		});
 
 		//add tax map grid to map
-		$.getJSON("JSON/Tax_Map_Grid.geojson", function(data){
+		/*$.getJSON("JSON/Tax_Map_Grid.geojson", function(data){
 			//add GeoJSON layer to the map once the file is loaded 
 			var tax = L.geoJson(data,{
 			onEachFeature: function(feature, featureLayer) {
@@ -68,9 +68,21 @@
 
 		map.addLayer(tax);
 
-		});		
+		});*/
 
-		
+		//add school facilites 
+		$.getJSON("JSON/School_Facilites.geojson", function(data){
+			//add GeoJSON layer to the map once the file is loaded 
+			var schools = L.geoJson(data,{
+			onEachFeature: function(feature, featureLayer) {
+				//for each feature, add the propertiesto the popup
+				featureLayer.bindPopup(feature.properties.Feature);
+			}
+		});
+
+		map.addLayer(schools);
+
+		});
 
 
 	</script> 
