@@ -71,7 +71,7 @@
 		});*/
 
 		//add school facilites 
-		$.getJSON("JSON/School_Facilites.geojson", function(data){
+		$.getJSON("JSON/School_Facilities.geojson", function(data){
 			//add GeoJSON layer to the map once the file is loaded 
 			var schools = L.geoJson(data,{
 			onEachFeature: function(feature, featureLayer) {
