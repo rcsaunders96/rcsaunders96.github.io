@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- the leaflet CSS and JS library -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="">
+	<!-- Make sure you put this AFTER leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+	<!-- Add JQuery to get local GeoJson file -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+	<!-- A style for the map element -->
+	<style>
+
+		#map {height:80vh;background-color: black;}
+
+	</style>
+
+
+</head>
+
+
+<body> 
+	<h3> Leaftlet Lab 3 </h3>
+
+	<!-- map element -->
+	<div id="map"></div>
+
+	<!--the script for my map-->
+	<script>
+		//Basemap from http://leaflet-extras.github.io/leaflet-providers/preview/
+					var OpenStreetMap_BlackAndWhite = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+				maxZoom: 18,
+				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+			});
+		//make the map
+		var map = new L.Map("map", {
+			center: new L.LatLng(38.9085, -77.2405),
+			zoom: 12
+		});
+		//add the basemap to the map
+		map.addLayer(OpenStreetMap_BlackAndWhite);
+
+		//add a Local geojson file
+		//Thanks to https://catalog.data.gov/dataset?q=boundary&sort=views_recent+desc&organization=fairfax-county-virginia&res_format=GeoJSON&as_sfid=AAAAAAXXKmB4L-JH1q8A-JULTWdhOyK2Ci-pM6rbheFEMwsMbLSustazvPXxZb70W0PizrbpdB21Y4uRit5f8aIE8z8sRqtYnsyypFk-6QN4i5ktmx3MqOcZ7YwB5Ud9rem-_Jk%3D&as_fid=648b7050711bf4f9f3d018549ca3bbd9646fb126&ext_location=&ext_bbox=&ext_prev_extent=-142.03125%2C8.754794702435618%2C-59.0625%2C61.77312286453146
+		$.getJSON("JSON/Fairfax_County_Border.geojson", function(data){
+			onEachFeature: function(feature, featureLayer) {
+				//for each feature, add the propertiesto the popup
+				featureLayer.bindPopup(feature.properties.NAME);
+			}
+		});
+
+
+	</script> 
+
+
+</body>
+</html>
