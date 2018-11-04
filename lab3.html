@@ -80,7 +80,10 @@
 			});
 			L.geoJson(data ,{
 			pointToLayer: function(feature,latlng){
-					return L.marker(latlng, {icon: schoolH});
+					var marker = L.marker(latlng, {icon: schoolH});
+					marker.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
+					return marker;
+
 				}
 			} ).addTo(map);
 			//add GeoJSON layer to the map once the file is loaded 
@@ -92,7 +95,7 @@
 			//}
 		//});
 
-		map.addLayer(schools);
+		//map.addLayer(schools);
 
 		});
 
