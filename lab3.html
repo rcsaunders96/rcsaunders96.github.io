@@ -72,19 +72,19 @@
 		});*/
 
 		//add school facilites 
-		$.getJSON("JSON/School_Facilities.geojson", function(data){
+		//$.getJSON("JSON/School_Facilities.geojson", function(data){
 			//add GeoJSON layer to the map once the file is loaded 
-			var schools = L.geoJson(data,{
-			onEachFeature: function(feature, featureLayer) {
+			//var schools = L.geoJson(data,{
+			//onEachFeature: function(feature, featureLayer) {
 				//for each feature, add the propertiesto the popup
-				featureLayer.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
+				//featureLayer.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
 
-			}
-		});
+		//	}
+		//});
 
-		map.addLayer(schools);
+		//map.addLayer(schools);
 
-		});
+		//});
 
 
 		//add Landfills to map
