@@ -86,13 +86,6 @@
 
 		});
 
-					var myIcon = L.icon({
-				iconUrl: "JSON/dump-icon-21.jpg",
-				iconSize: [38, 95],
-				iconAnchor: [22, 94],
-				popupAnchor: [-3, -76],
-
-			});
 
 		//add Landfills to map
 		$.getJSON("JSON/Landfills.geojson", function(data){
@@ -108,12 +101,12 @@
 			} ).addTo(map);
 
 			//add GeoJSON layer to the map once the file is loaded 
-			var landfill = L.geoJson(data,{
-			onEachFeature: function(feature, featureLayer) {
+			//var landfill = L.geoJson(data,{
+			//onEachFeature: function(feature, featureLayer) {
 				//for each feature, add the propertiesto the popup
-				featureLayer.bindPopup(feature.properties.Feature);
-			}
-		});
+				//featureLayer.bindPopup(feature.properties.Feature);
+			//}
+		//});
 
 		map.addLayer(landfill);	
 
