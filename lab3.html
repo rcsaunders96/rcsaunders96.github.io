@@ -80,21 +80,19 @@
 				featureLayer.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
 
 			}
+		});
 
-			var myIcon = L.icon({
+		map.addLayer(schools);
+
+		});
+
+					var myIcon = L.icon({
 				iconUrl: "JSON/dump-icon-21.jpg"
 				iconSize: [38, 95],
 				iconAnchor: [22, 94],
 				popupAnchor: [-3, -76],
 
 			});
-
-			}
-		});
-
-		map.addLayer(schools);
-
-		});
 
 		//add Landfills to map
 		$.getJSON("JSON/Landfills.geojson", function(data){
