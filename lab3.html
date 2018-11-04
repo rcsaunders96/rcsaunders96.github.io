@@ -57,19 +57,10 @@
 
 		});
 
-		//add tax map grid to map
-		/*$.getJSON("JSON/Tax_Map_Grid.geojson", function(data){
-			//add GeoJSON layer to the map once the file is loaded 
-			var tax = L.geoJson(data,{
-			onEachFeature: function(feature, featureLayer) {
-				//for each feature, add the propertiesto the popup
-				featureLayer.bindPopup(feature.properties.MAP_NUMBER);
-			}
+		//add landfill polygon
+		$.getJSON("JSON/Landfills.geojson", function(landfillData){
+			L.geoJson(LandfillData).addTo(map);
 		});
-
-		map.addLayer(tax);
-
-		});*/
 
 		//add school facilites 
 		$.getJSON("JSON/School_Facilities.geojson", function(data){
@@ -100,21 +91,7 @@
 		});
 
 
-		//add Landfills to map
-		$.getJSON("JSON/Landfills.geojson", function(data){
 
-
-			//add GeoJSON layer to the map once the file is loaded 
-			var landfill = L.geoJson(data,{
-			onEachFeature: function(feature, featureLayer) {
-				//for each feature, add the properties to the popup
-				featureLayer.bindPopup(feature.properties.Feature);
-			}
-		});
-
-		map.addLayer(landfill);	
-
-		});
 
 		//custom icon for landfill
 		//var dumptruck = L.icon({
