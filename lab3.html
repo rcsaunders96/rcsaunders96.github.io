@@ -76,7 +76,7 @@
 			//add Icon
 			var schoolH= L.icon({
 				iconUrl: "JSON/schoolHouse.png",
-				iconSize: [256, 256]
+				iconSize: [50, 40]
 			});
 			L.geoJson(data ,{
 			pointToLayer: function(feature,latlng){
@@ -84,13 +84,13 @@
 				}
 			} ).addTo(map);
 			//add GeoJSON layer to the map once the file is loaded 
-			var schools = L.geoJson(data,{
-			onEachFeature: function(feature, featureLayer) {
+			//var schools = L.geoJson(data,{
+			//onEachFeature: function(feature, featureLayer) {
 				//for each feature, add the propertiesto the popup
-				featureLayer.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
+				//featureLayer.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
 
-			}
-		});
+			//}
+		//});
 
 		map.addLayer(schools);
 
