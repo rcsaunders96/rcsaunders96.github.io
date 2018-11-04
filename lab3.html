@@ -22,7 +22,7 @@
 
 
 <body> 
-	<h3> Leaftlet Lab 3 </h3>
+	<h3> FairFax County Virginia <br> School Facilites in Relation to Landfills </h3>
 
 	<!-- map element -->
 	<div id="map"></div>
@@ -96,6 +96,17 @@
 
 		//add Landfills to map
 		$.getJSON("JSON/Landfills.geojson", function(data){
+			//add Icon
+			var dumpIcon= L.icon({
+				iconUrl: "JSON/dump-icon-21.jpg",
+				iconSize: [200, 200]
+			});
+			L.geoJson(data ,{
+				pointToLayer: function(feature,latlng){
+					return L.marker(latlng, {icon: dumpIcon});
+				}
+			} ).addTo(map);
+
 			//add GeoJSON layer to the map once the file is loaded 
 			var landfill = L.geoJson(data,{
 			onEachFeature: function(feature, featureLayer) {
