@@ -60,12 +60,13 @@
 		//add landfill polygon
 		$.getJSON("JSON/Landfills.geojson", function(LandfillData){
 			L.geoJson(LandfillData, {
-				style: function(feature){
-					var fillColor,
-					return {color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6};
-				},
+				ploygon.setStyle({fillColor: '#0000FF'});
+				//style: function(feature){
+					//var fillColor,
+					//return {color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6};
+				}),
 			}).addTo(map);
-		});
+		//});
 
 		//add school facilites 
 		$.getJSON("JSON/School_Facilities.geojson", function(data){
