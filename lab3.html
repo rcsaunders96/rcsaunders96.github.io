@@ -32,9 +32,9 @@
 		//style for each polygon
 		function boundarystyle(feature) {
 			return {
-				fillColor: '#31a354',
+				fillColor: '#7E5109',
 				weight: 1,
-				opacity: 0.75,
+				opacity: 0.35,
 				color: 'white',
 				fillOpacity: 0.75
 
@@ -47,7 +47,7 @@
 			return {
 				fillColor: '#C0392B',
 				weight: 1,
-				opacity: 0.75,
+				opacity: 0.85,
 				color: 'white',
 				fillOpacity: 0.75
 
@@ -84,7 +84,7 @@
 				style: landfillstyle,
 			onEachFeature: function(feature, featureLayer) {
 				//for each feature, add the propertiesto the popup
-				featureLayer.bindPopup(feature.properties.Feature);
+				featureLayer.bindPopup("<p>Feature: "+feature.properties.Feature+"</p>");
 			}
 		});
 
