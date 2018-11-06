@@ -32,7 +32,7 @@
 		//style for each polygon
 		function boundarystyle(feature) {
 			return {
-				fillColor: '#7E5109',
+				fillColor: '#7DCEA0',
 				weight: 1,
 				opacity: 0.35,
 				color: 'white',
@@ -45,11 +45,11 @@
 				//style for each polygon
 		function landfillstyle(feature) {
 			return {
-				fillColor: '#C0392B',
+				fillColor: '#7E5109',
 				weight: 1,
 				opacity: 0.85,
 				color: 'white',
-				fillOpacity: 0.75
+				fillOpacity: 1
 
 			};
 		};
@@ -108,7 +108,7 @@
 			//add Icon
 			var schoolH= L.icon({
 				iconUrl: "JSON/schoolHouse.png",
-				iconSize: [50, 40]
+				iconSize: [35, 30]
 			});
 			L.geoJson(data ,{
 			pointToLayer: function(feature,latlng){
