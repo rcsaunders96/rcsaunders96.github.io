@@ -1,6 +1,17 @@
 <!DOCTYPE html>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
 <html>
 <head>
+		<title>Rachel Saunders</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+
 	<!-- the leaflet CSS and JS library -->
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="">
 	<!-- Make sure you put this AFTER leaflet's CSS -->
@@ -20,131 +31,240 @@
 
 </head>
 
+	<body >
 
-<body> 
-	<h3> FairFax County Virginia <br> School Facilites in Relation to Landfills </h3>
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-	<!-- map element -->
-	<div id="map"></div>
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Saunders</a>
+					</header>
 
-	<!--the script for my map-->
-	<script>
-		//style for each polygon
-		function boundarystyle(feature) {
-			return {
-				fillColor: '#7DCEA0',
-				weight: 1,
-				opacity: 0.35,
-				color: 'white',
-				fillOpacity: 0.75
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Personal Biography</a></li>
+							<li><a href="generic.html">Education</a></li>
+							<li><a href="elements.html">Portfolio</a></li>
+							<li class="active"><a href="map.html">Map</a></li>		
+						</ul>
+						<ul class="icons">
+							<li><a href="https://www.facebook.com/turtelshell?lst=1782217122%3A1782217122%3A1539732500" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="https://www.instagram.com/rachelsaunders96/?hl=en" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://www.linkedin.com/in/rcsaunders96/" target="_blank" class="icon fa-linkedin-square"><span class="label">Linkedin</span></a></li>
+						</ul>
+					</nav>
 
-			};
-		};
+				<!-- Main -->
+					<div id="main">
 
-		//style for landfill polygon
-				//style for each polygon
-		function landfillstyle(feature) {
-			return {
-				fillColor: '#7E5109',
-				weight: 1,
-				opacity: 0.85,
-				color: 'white',
-				fillOpacity: 1
+						<!-- Featured Post -->
+						<!--	<article class="post featured">
+								<header class="major">
+									<span class="date">October 23, 2018</span>
+									<h2><a href="#">Map<br />
+									</a></h2>
+									<p><br />
+									<br />
+									</p>
+								</header>
+								<a href="#" class="image main"><img src="images/" alt="" /></a>
 
-			};
-		};
-		//Basemap from http://leaflet-extras.github.io/leaflet-providers/preview/
-					var OpenStreetMap_BlackAndWhite = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
-				maxZoom: 18,
-				attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-			});
-		//make the map
-		var map = new L.Map("map", {
-			center: new L.LatLng(38.9085, -77.2405),
-			zoom: 12
-		});
-		//add the basemap to the map
-		map.addLayer(OpenStreetMap_BlackAndWhite);
+							</article> -->
 
-		//add fairfax county boundary to map
-		//Thanks to https://catalog.data.gov/dataset?q=boundary&sort=views_recent+desc&organization=fairfax-county-virginia&res_format=GeoJSON&as_sfid=AAAAAAXXKmB4L-JH1q8A-JULTWdhOyK2Ci-pM6rbheFEMwsMbLSustazvPXxZb70W0PizrbpdB21Y4uRit5f8aIE8z8sRqtYnsyypFk-6QN4i5ktmx3MqOcZ7YwB5Ud9rem-_Jk%3D&as_fid=648b7050711bf4f9f3d018549ca3bbd9646fb126&ext_location=&ext_bbox=&ext_prev_extent=-142.03125%2C8.754794702435618%2C-59.0625%2C61.77312286453146
-		$.getJSON("JSON/Fairfax_County_Border.geojson", function(data){
-			//add GeoJSON layer to the map once the file is loaded 
-			var boundary = L.geoJson(data,{
-				style: boundarystyle});
-
-		map.addLayer(boundary);
-		boundary.bringToBack();
-
-		});
-
-			$.getJSON("JSON/Landfills.geojson", function(data){
-			//add GeoJSON layer to the map once the file is loaded 
-			var boundary = L.geoJson(data,{
-				style: landfillstyle,
-			onEachFeature: function(feature, featureLayer) {
-				//for each feature, add the propertiesto the popup
-				featureLayer.bindPopup("<p>Feature: "+feature.properties.Feature+"</p>");
-			}
-		});
-
-		map.addLayer(boundary);
-
-		});
-
-		//add landfill polygon
-		//$.getJSON("JSON/Landfills.geojson", function(LandfillData){
-			//L.geoJson(LandfillData) 
-				//ploygon.setStyle({fillColor: white});
-				//style: function(feature){
-					//var fillColor,
-					//return {color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6};
-				
-			//}).addTo(map);
-		//});
-
-		//add school facilites 
-		$.getJSON("JSON/School_Facilities.geojson", function(data){
-			//add Icon
-			var schoolH= L.icon({
-				iconUrl: "JSON/schoolHouse.png",
-				iconSize: [35, 30]
-			});
-			L.geoJson(data ,{
-			pointToLayer: function(feature,latlng){
-					var marker = L.marker(latlng, {icon: schoolH});
-					marker.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
-					return marker;
-
-				}
-			} ).addTo(map);
-			//add GeoJSON layer to the map once the file is loaded 
-			//var schools = L.geoJson(data,{
-			//onEachFeature: function(feature, featureLayer) {
-				//for each feature, add the propertiesto the popup
-				//featureLayer.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
-
-			//}
-		//});
-
-		//map.addLayer(schools);
-
-		});
+						<!-- Box -->
+						<h2>FairFax County Virginia</h2>
+						<p>School Facilites in Relation to Landfills. </p>
 
 
+				<!-- map element -->
+								<div id="map"></div>
+
+								<!--the script for my map-->
+								<script>
+									//style for each polygon
+									function boundarystyle(feature) {
+										return {
+											fillColor: '#7DCEA0',
+											weight: 1,
+											opacity: 0.35,
+											color: 'white',
+											fillOpacity: 0.75
+
+										};
+									};
+
+									//style for landfill polygon
+											//style for each polygon
+									function landfillstyle(feature) {
+										return {
+											fillColor: '#7E5109',
+											weight: 1,
+											opacity: 0.85,
+											color: 'white',
+											fillOpacity: 1
+
+										};
+									};
+									//Basemap from http://leaflet-extras.github.io/leaflet-providers/preview/
+												var OpenStreetMap_BlackAndWhite = L.tileLayer('http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
+											maxZoom: 18,
+											attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+										});
+									//make the map
+									var map = new L.Map("map", {
+										center: new L.LatLng(38.9085, -77.2405),
+										zoom: 12
+									});
+									//add the basemap to the map
+									map.addLayer(OpenStreetMap_BlackAndWhite);
+
+									//add fairfax county boundary to map
+									//Thanks to https://catalog.data.gov/dataset?q=boundary&sort=views_recent+desc&organization=fairfax-county-virginia&res_format=GeoJSON&as_sfid=AAAAAAXXKmB4L-JH1q8A-JULTWdhOyK2Ci-pM6rbheFEMwsMbLSustazvPXxZb70W0PizrbpdB21Y4uRit5f8aIE8z8sRqtYnsyypFk-6QN4i5ktmx3MqOcZ7YwB5Ud9rem-_Jk%3D&as_fid=648b7050711bf4f9f3d018549ca3bbd9646fb126&ext_location=&ext_bbox=&ext_prev_extent=-142.03125%2C8.754794702435618%2C-59.0625%2C61.77312286453146
+									$.getJSON("JSON/Fairfax_County_Border.geojson", function(data){
+										//add GeoJSON layer to the map once the file is loaded 
+										var boundary = L.geoJson(data,{
+											style: boundarystyle});
+
+									map.addLayer(boundary);
+									boundary.bringToBack();
+
+									});
+
+										$.getJSON("JSON/Landfills.geojson", function(data){
+										//add GeoJSON layer to the map once the file is loaded 
+										var boundary = L.geoJson(data,{
+											style: landfillstyle,
+										onEachFeature: function(feature, featureLayer) {
+											//for each feature, add the propertiesto the popup
+											featureLayer.bindPopup("<p>Feature: "+feature.properties.Feature+"</p>");
+										}
+									});
+
+									map.addLayer(boundary);
+
+									});
+
+									//add landfill polygon
+									//$.getJSON("JSON/Landfills.geojson", function(LandfillData){
+										//L.geoJson(LandfillData) 
+											//ploygon.setStyle({fillColor: white});
+											//style: function(feature){
+												//var fillColor,
+												//return {color: "#999", weight: 1, fillColor: fillColor, fillOpacity: .6};
+											
+										//}).addTo(map);
+									//});
+
+									//add school facilites 
+									$.getJSON("JSON/School_Facilities.geojson", function(data){
+										//add Icon
+										var schoolH= L.icon({
+											iconUrl: "JSON/schoolHouse.png",
+											iconSize: [35, 30]
+										});
+										L.geoJson(data ,{
+										pointToLayer: function(feature,latlng){
+												var marker = L.marker(latlng, {icon: schoolH});
+												marker.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
+												return marker;
+
+											}
+										} ).addTo(map);
+										//add GeoJSON layer to the map once the file is loaded 
+										//var schools = L.geoJson(data,{
+										//onEachFeature: function(feature, featureLayer) {
+											//for each feature, add the propertiesto the popup
+											//featureLayer.bindPopup("<p>SCHOOL_NAME: "+feature.properties.SCHOOL_NAME+"</p>");
+
+										//}
+									//});
+
+									//map.addLayer(schools);
+
+									});
 
 
-		//custom icon for landfill
-		//var dumptruck = L.icon({
-			//iconRef: "JSON/dump-icon-21.jpg",
-			//iconsize: [38, 95], 
-		//});
-
-		//create marker object, pass custom icon as option, add to map
-		//var marker = L.marker(landfill,{<i class="fas fa-school"></i>}).addTo(map);
 
 
-	</script> 
+									//custom icon for landfill
+									//var dumptruck = L.icon({
+										//iconRef: "JSON/dump-icon-21.jpg",
+										//iconsize: [38, 95], 
+									//});
+
+									//create marker object, pass custom icon as option, add to map
+									//var marker = L.marker(landfill,{<i class="fas fa-school"></i>}).addTo(map);
+
+
+								</script> 
+
+					</div>
+
+			<!-- Footer -->
+					<footer id="footer">
+						<section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section>
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>University of Washington Tacoma, Urban Studies<br />
+								Tacoma, WA 98402</p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p><a href="#">(913) 548-2529</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">rs1@uw.edu</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+							<ul class="icons">
+							<li><a href="https://www.facebook.com/turtelshell?lst=1782217122%3A1782217122%3A1539732500" target="_blank" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="https://www.instagram.com/rachelsaunders96/?hl=en" target="_blank" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://www.linkedin.com/in/rcsaunders96/" class="icon fa-linkedin-square" target="_blank"><span class="label">Linkedin</span></a></li>
+							</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
 
 </body>
