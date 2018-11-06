@@ -139,7 +139,7 @@
 											style: landfillstyle,
 										onEachFeature: function(feature, featureLayer) {
 											//for each feature, add the propertiesto the popup
-											featureLayer.bindPopup("<p>Landfills""</p>");
+											featureLayer.bindPopup("<p>Feature: landfill"+feature.properties.Feature+"</p>");
 										}
 									});
 
