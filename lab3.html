@@ -71,7 +71,7 @@
 		$.getJSON("JSON/Fairfax_County_Border.geojson", function(data){
 			//add GeoJSON layer to the map once the file is loaded 
 			var boundary = L.geoJson(data,{
-				style: boundarystyle};
+				style: boundarystyle});
 
 		map.addLayer(boundary);
 		boundary.bringToBack();
