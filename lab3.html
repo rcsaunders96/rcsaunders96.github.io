@@ -198,6 +198,26 @@
 									//create marker object, pass custom icon as option, add to map
 									//var marker = L.marker(landfill,{<i class="fas fa-school"></i>}).addTo(map);
 
+							//Legend
+							var legend = L.control({position: 'bottomleft'});
+
+							legend.onAdd = function (map) {
+
+								var div = L.DomUtil.create('div', 'info legend'),
+									Schools = ["JSON/schoolHouse.png"],
+									Landfills = ["dump"];
+
+							 // loop through our density intervals and generate a label with a colored square for each interval
+    							for (var i = 0; i < Schools.Landfills; i++) {
+        						div.innerHTML +=
+            					Schools[i] + (" <img src="+ Landfills[i] +" height='50' width='50'>") +'<br>';
+    }
+
+    return div;
+};
+
+legend.addTo(map)
+							}
 
 								</script> 
 
