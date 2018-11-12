@@ -17,6 +17,12 @@
 		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
 
+		<!--style-->
+		<style>
+			body { margin:0; padding:0; }
+			#quakemap { position:absolute; top:0; bottom:0; width:100%; }
+		</style>
+
 
 	</head>
 
@@ -71,7 +77,7 @@
 <!--earthquake map-->
 
 		<!--div for the earthquake map-->
-		<div id='quakemap' style='width: 100vh; height: 100vh;'></div>
+		<div id='quakemap'></div>
 
 
 			<script>
@@ -83,11 +89,15 @@
 				var map = new mapboxgl.Map({
 					container: 'quakemap',
 					style: 'mapbox://styles/rcsaunders96/cjoerlw6j5b3t2smnjvxu26ai',
-				});
+					center: [-122, 45],
+					zoom: 2.2
+					});
+					//style: 'mapbox://styles/rcsaunders96/cjoerlw6j5b3t2smnjvxu26ai',
+				//});
 
 				//set center and zoom
-				map.setCenter([-122, 45]);
-				map.setZoom(2);
+				//map.setCenter([-122, 45]);
+				//map.setZoom(2);
 
 				//on map load, display earthquake data
 				map.on('load', function(){
