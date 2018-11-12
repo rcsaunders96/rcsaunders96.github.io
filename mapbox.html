@@ -14,8 +14,8 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
 		<!--mapbox libraries-->
-		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.js'></script>
-		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.50.0/mapbox-gl.css' rel='stylesheet' />
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
 
 
 	</head>
@@ -71,15 +71,39 @@
 <!--earthquake map-->
 
 		<!--div for the earthquake map-->
-
+		<div id='quakemap' style='width: 100vh; height: 100vh;'></div>
 
 
 			<script>
 				//Mapbox token for earthquake map
-
+				mapboxgl.accessToken = 'pk.eyJ1IjoicmNzYXVuZGVyczk2IiwiYSI6ImNqbzNleWJmcDBtanAzd3BncXI5amsxN2gifQ.xXowywf-2CY5HNdRkuHM7w';
 
 
 				//map variable for earthquake map
+				var map = new mapboxgl.Map({
+					container: 'quakemap',
+					style: 'mapbox://styles/rcsaunders96/cjoerlw6j5b3t2smnjvxu26ai',
+				});
+
+				//set center and zoom
+				map.setCenter([-122, 45]);
+				map.setZoom(2);
+
+				//on map load, display earthquake data
+				map.on('load', function(){
+					//adding source layer for earthquakes
+					map.addSource('earthquakes', {
+						"type": "geojson",
+						"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
+					});
+					//add earthquake points to map
+					map.addLayer({
+						"id": "quakes",
+						"type": "circle",
+						"source": "earthquakes"
+					});
+					//add a handler for clicking/popups
+				});
 
 
 
@@ -99,6 +123,7 @@
 
 			<script>
 				//mapbox token for second map
+				mapboxgl.accessToken = 'pk.eyJ1IjoicmNzYXVuZGVyczk2IiwiYSI6ImNqbzNleWJmcDBtanAzd3BncXI5amsxN2gifQ.xXowywf-2CY5HNdRkuHM7w';
 
 
 
