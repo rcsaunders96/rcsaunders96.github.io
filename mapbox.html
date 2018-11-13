@@ -15,7 +15,14 @@
 
 		<!--mapbox libraries-->
 		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
-		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet' />
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet'/>
+
+		<style>
+
+		#quakemap {height:90vh;background-color: black; padding: 0px;}
+		#secondmap {height:90vh;background-color: black; padding: 0px;}
+
+	   </style>
 
 
 	</head>
@@ -71,7 +78,7 @@
 <!--earthquake map-->
 
 		<!--div for the earthquake map-->
-		<div id='quakemap' style='width: 100%, height: 100%'></div>
+		<div id='quakemap'></div>
 
 
 			<script>
@@ -80,7 +87,7 @@
 
 
 				//map variable for earthquake map
-				var map = new mapboxgl.Map({
+				var earthmap = new mapboxgl.Map({
 					container: 'quakemap',
 					style: 'mapbox://styles/rcsaunders96/cjoerlw6j5b3t2smnjvxu26ai',
 					center: [-122, 45],
@@ -94,18 +101,19 @@
 				//map.setZoom(2);
 
 				//on map load, display earthquake data
-				map.on('load', function(){
+				earthmap.on('load', function(){
 					//adding source layer for earthquakes
-					map.addSource('earthquakes', {
+					earthmap.addSource('earthquakes', {
 						"type": "geojson",
 						"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 					});
 					//add earthquake points to map
-					map.addLayer({
+					earthmap.addLayer({
 						"id": "quakes",
 						"type": "circle",
 						"source": "earthquakes"
 					});
+
 					//add a handler for clicking/popups
 				});
 
@@ -121,7 +129,7 @@
 
 	<!--div for second map-->
 
-		<div id='secondmap' style='width: 100vh, height: 100vh'></div>
+		<div id='secondmap'></div>
 
 			<script>
 				//mapbox token for second map
@@ -130,7 +138,7 @@
 
 
 				//map variable for second map
-				var map = new mapboxgl.Map({
+				var nextmap = new mapboxgl.Map({
 					container: 'secondmap',
 					style: 'mapbox://styles/rcsaunders96/cjogb6e3j6ro22rpcdz52ia25',
 					center: [-122, 45],
