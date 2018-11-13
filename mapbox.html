@@ -71,7 +71,7 @@
 <!--earthquake map-->
 
 		<!--div for the earthquake map-->
-		<div id='quakemap' style='width: 50vh, height: 75vh'></div>
+		<div id='quakemap' style='width: 100vh, height: 100vh'></div>
 
 
 			<script>
@@ -111,9 +111,9 @@
 
 
 
-
 			</script>
-
+<!--div for second map-->
+		<div id='secondmap' style='width: 100vh, height: 100vh'></div>
 
 						<h2>second map</h2>
 						<p>second map</p>
@@ -132,8 +132,12 @@
 
 
 				//map variable for second map
-
-
+				var map = new mapboxgl.Map({
+					container: 'secondmap',
+					style: 'mapbox://styles/rcsaunders96/cjogb6e3j6ro22rpcdz52ia25',
+					center: [-122, 45],
+					zoom: 2.2
+					});
 
 
 
