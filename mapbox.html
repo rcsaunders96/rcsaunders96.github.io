@@ -14,15 +14,26 @@
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
 		<!--mapbox libraries-->
-		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js'></script>
-		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css' rel='stylesheet'/>
+		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
+		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet'/>
+
+		<!--map style-->
 
 		<style>
 
 		#quakemap {height:90vh;background-color: black; padding: 0px;}
 		#secondmap {height:90vh;background-color: black; padding: 0px;}
-
+		.button {
+			-webkit-box-shadow: none;
+			-moz-box-shadow: none;
+			box-shadow: none;
+		}
+	
 	   </style>
+
+
+
+
 
 
 	</head>
@@ -77,9 +88,13 @@
 
 <!--earthquake map-->
 
+<!--geocoder plugin-->
+		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
+
+
 		<!--div for the earthquake map-->
 		<div id='quakemap'></div>
-
 
 			<script>
 				//Mapbox token for earthquake map
@@ -93,14 +108,18 @@
 					center: [-122, 45],
 					zoom: 2.2
 					});
-					//style: 'mapbox://styles/rcsaunders96/cjoerlw6j5b3t2smnjvxu26ai',
-				//});
 
-				//set center and zoom
-				//map.setCenter([-122, 45]);
-				//map.setZoom(2);
+				//add geocoder
+				earthmap.addControl(new MapboxGeocoder({
+					accessToken: mapboxgl.accessToken
+				}));
+
+				//add zoom and rotation controls to map
+				earthmap.addControl(new mapboxgl.NavigationControl());
+
 
 				//on map load, display earthquake data
+				//thanks to https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/ & https://mseto-uw.github.io/mapbox_example.html
 				earthmap.on('load', function(){
 					//adding source layer for earthquakes
 					earthmap.addSource('earthquakes', {
@@ -108,6 +127,7 @@
 						"data": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson"
 					});
 					//add earthquake points to map
+					//thanks to https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/ & https://mseto-uw.github.io/mapbox_example.html
 					earthmap.addLayer({
 						"id": "quakes",
 						"type": "circle",
@@ -115,6 +135,36 @@
 					});
 
 					//add a handler for clicking/popups
+					//thanks to https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/ & https://mseto-uw.github.io/mapbox_example.html
+					earthmap.on('click', 'quakes', function (e) {
+						var coordinates = e.features[0].geometry.coordinates.slice();
+						var description = "<p> Mag:_" + e.features[0].properties.mag + "<br> Location:_" + e.features[0].properties.place + "<br> URL:_<a href='" + e.features[0].properties.url +"'>Click Here</a></p>";
+						
+
+						while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+							coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+						}
+
+					//make the popup
+					//thanks to https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/ & https://mseto-uw.github.io/mapbox_example.html
+					new mapboxgl.Popup()
+						.setLngLat(coordinates)
+						.setHTML(description)
+						.addTo(earthmap);
+
+					});
+					
+					//change cursor to pointer when mouse is over the places layer
+					//thanks to https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/
+					earthmap.on('mouseenter', 'quakes', function (){
+						earthmap.getCanvas().style.cursor = 'pointer';
+					});
+
+					//Change back to pointer
+					//thanks to https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/
+					earthmap.on('mouseleave', 'quakes', function () {
+						earthmap.getCanvas().style.cursor='';
+					});
 				});
 
 
