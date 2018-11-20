@@ -13,9 +13,29 @@
 		<link rel="stylesheet" href="assets/css/mapboxmain.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 
+
 		<!--mapbox libraries-->
 		<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.js'></script>
 		<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.51.0/mapbox-gl.css' rel='stylesheet'/>
+
+	<!-- the leaflet CSS and JS library -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin="">
+	<!-- Make sure you put this AFTER leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js" integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA==" crossorigin=""></script>
+	<!-- Add JQuery to get local GeoJson file -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<!--Font-Awesome plugin for leaflet home button-->
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+
+	<!--link css for leaflet home button-->
+	<link rel="stylesheet" href="assets/css/leaflet.zoomhome.css"/>
+	<script src="assets/css/leaflet.zoomhome.min.js"></script>
+
+	<!-- Omnivore plugin to use KML -->
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.2.0/leaflet-omnivore.min.js'></script>
+
+
 
 		<!--map style-->
 
@@ -23,13 +43,9 @@
 
 		#quakemap {height:90vh;background-color: black; padding: 0px;}
 		#secondmap {height:90vh;background-color: black; padding: 0px;}
-		.button {
-			-webkit-box-shadow: none;
-			-moz-box-shadow: none;
-			box-shadow: none;
-		}
 	
 	   </style>
+
 
 
 
@@ -92,9 +108,29 @@
 		<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
 		<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
 
+<!--fit button for zoom/extent reset, home-->
+	<style>
+		#fit {
+			display: block;
+			position: relative;
+			margin: 0px auto;
+			width: 50%;
+			height: 40px;
+			padding: 10px;
+			border: none;
+			border-radius: 3px;
+			font-size: 12px;
+			text-align: center;
+			color: white;
+			background: #A9A9A9;
+		}
+	</style>
+
 
 		<!--div for the earthquake map-->
 		<div id='quakemap'></div>
+		<br/>
+		<button id='fit'>Center</button>
 
 			<script>
 				//Mapbox token for earthquake map
@@ -105,9 +141,19 @@
 				var earthmap = new mapboxgl.Map({
 					container: 'quakemap',
 					style: 'mapbox://styles/rcsaunders96/cjoerlw6j5b3t2smnjvxu26ai',
-					center: [-122, 45],
-					zoom: 2.2
+					center: [-123, 44],
+					zoom: 2.5
 					});
+				//making home fit button
+				document.getElementById('fit').addEventListener('click', function() {
+					earthmap.fitBounds([[
+						-151.22,
+						-1.56
+					], [
+						-69.03,
+						69.36
+					]]);
+				});
 
 				//add geocoder
 				earthmap.addControl(new MapboxGeocoder({
@@ -115,6 +161,7 @@
 				}));
 
 				//add zoom and rotation controls to map
+				earthmap.scrollZoom.disable();
 				earthmap.addControl(new mapboxgl.NavigationControl());
 
 
@@ -131,14 +178,34 @@
 					earthmap.addLayer({
 						"id": "quakes",
 						"type": "circle",
-						"source": "earthquakes"
+						"source": "earthquakes",
+						"paint": {
+							//make circles larger as the user zooms from z12 to z22
+							'circle-radius': {
+								'base': 3,
+								'stops': [[12, 2], [22, 180]]
+							},
+							// color circles by mag type, using match expression from https://www.mapbox.com/mapbox-gl-js/example/data-driven-circle-colors/
+							// https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions-match
+							'circle-color': [
+								'match',
+								['get', 'magType'],
+								'mb', '#fef0d9',
+								'mww', '#fdd49e',
+								'mwr', '#fdbb84',
+								'mb_lg', '#fc8d59',
+								'ml', '#e34a33',
+								'md', '#b30000',
+								/*other */ '#ccc'
+								]
+						}
 					});
 
 					//add a handler for clicking/popups
 					//thanks to https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/ & https://mseto-uw.github.io/mapbox_example.html
 					earthmap.on('click', 'quakes', function (e) {
 						var coordinates = e.features[0].geometry.coordinates.slice();
-						var description = "<p> Mag:_" + e.features[0].properties.mag + "<br> Location:_" + e.features[0].properties.place + "<br> URL:_<a href='" + e.features[0].properties.url +"'>Click Here</a></p>";
+						var description = "<p> Mag:_" + e.features[0].properties.mag + "<br> MagType:_" + e.features[0].properties.place.magType +"<br> Location:_" + e.features[0].properties.place + "<br> URL:_<a href='" + e.features[0].properties.url + "' target='_blank'>Click Here</a></p>";
 						
 
 						while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -176,24 +243,107 @@
 						<p>second map</p>
 
 
+<!--had to map the second map a leaflet map, because of the omnivore-->
 
 	<!--div for second map-->
 
+
 		<div id='secondmap'></div>
 
+
 			<script>
-				//mapbox token for second map
-				mapboxgl.accessToken = 'pk.eyJ1IjoicmNzYXVuZGVyczk2IiwiYSI6ImNqbzNleWJmcDBtanAzd3BncXI5amsxN2gifQ.xXowywf-2CY5HNdRkuHM7w';
+					//style for each polygon
+					function snowstyle(feature) {
+						return {
+							fillColor: '#D6EAF8',
+							weight: 1,
+							opacity: 0.25,
+							color: 'white',
+							fillOpacity: 0.75
 
+						};
+					};
 
-
-				//map variable for second map
-				var nextmap = new mapboxgl.Map({
-					container: 'secondmap',
-					style: 'mapbox://styles/rcsaunders96/cjogb6e3j6ro22rpcdz52ia25',
-					center: [-122, 45],
-					zoom: 2.2
+			//add snow KML layer using Omnivore
+				var snowLayer = omnivore.kml('https://cors-anywhere.herokuapp.com/https://www.wpc.ncep.noaa.gov/kml/winwx/HPC_Day1-3_psnow_gt_04_latest.kml').on('ready', function() {
+						nextmap.fitBounds(snowLayer.getBounds());
+						this.setStyle({color: "white"});
+						snowLayer.eachLayer(function(snowLayer) {
+							snowLayer.bindPopup("<p>Feature: SnowLevel_" + snowLayer.feature.properties.name +"</p>");
+						});
+					})
+					//.addTo(nextmap);
+			//add 3-7 day precipiation
+				var precpLayer = omnivore.kml('https://cors-anywhere.herokuapp.com/http://www.cpc.ncep.noaa.gov/products/predictions/threats/prcp_D3_7.kml').on('ready', function(){
+					nextmap.fitBounds(precpLayer.getBounds());
+					this.setStyle({color: "#1082D3"});
+					precpLayer.eachLayer(function(layer) {
+						layer.bindPopup(layer.feature.properties.name);
 					});
+				})
+				//.addTo(nextmap);
+
+			//add 3-7 day temperature
+				var tempLayer = omnivore.kml('https://cors-anywhere.herokuapp.com/http://www.cpc.ncep.noaa.gov/products/predictions/threats/temp_D3_7.kml').on('ready', function(){
+					nextmap.fitBounds(tempLayer.getBounds());
+					this.setStyle({color: "#ccffcc"});
+					tempLayer.eachLayer(function(layer) {
+						layer.bindPopup(layer.feature.properties.name);
+					});
+				})
+
+
+				//basemap from http://leaflet-extras.github.io/leaflet-providers/preview/
+				var OpenMapSurfer_Roads = L.tileLayer('https://korona.geog.uni-heidelberg.de/tiles/roads/x={x}&y={y}&z={z}', {
+				maxZoom: 8,
+					attribution: 'Imagery from <a href="http://giscience.uni-hd.de/">GIScience Research Group @ University of Heidelberg</a> &mdash; Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+				});
+
+
+			var Esri_WorldPhysical = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}', {
+				attribution: 'Tiles &copy; Esri &mdash; Source: US National Park Service',
+				maxZoom: 8
+			});
+
+		
+
+				//make the map
+				var nextmap = new L.map("secondmap", {
+					center: new L.LatLng(38.7, -100.22),
+					zoom: 4.4,
+					zoomControl: false,
+				layers: [OpenMapSurfer_Roads, Esri_WorldPhysical]
+						});
+				nextmap.scrollWheelZoom.disable();
+
+				//zoomHome
+				var zoomHome = L.Control.zoomHome({position: 'topright'});
+				zoomHome.addTo(nextmap);
+
+				var baseLayers = {
+					"Plain_Map": OpenMapSurfer_Roads,
+					"Topo_Map": Esri_WorldPhysical
+				};
+
+				var overLayers = {
+					"Snow": snowLayer,
+					"Rain": precpLayer,
+					"Temp": tempLayer
+
+				};
+
+			L.control.layers(baseLayers, overLayers).addTo(nextmap);
+
+
+
+				//add the basemap to the map
+				//nextmap.addLayer(OpenMapSurfer_Roads);
+
+
+
+
+
+
 
 
 
