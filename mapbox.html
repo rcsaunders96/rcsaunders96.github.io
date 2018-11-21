@@ -43,6 +43,7 @@
 
 		#quakemap {height:90vh;background-color: black; padding: 0px;}
 		#secondmap {height:90vh;background-color: black; padding: 0px;}
+
 	
 	   </style>
 
@@ -99,8 +100,8 @@
 							</article> -->
 
 						<!-- Box -->
-						<h2>earthquake</h2>
-						<p>earthquake</p>
+						<h2>Real-Time Earthquake Map</h2>
+						<p>The map below displays real-time earthquake data for all earthquakes in the past 7 days. This feed is updated every 5 minutes. You can find real time earthquake data <a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank">here.</a> <br/> Click on each point on the map to find out more about that earthquake.</p>
 
 <!--earthquake map-->
 
@@ -124,13 +125,25 @@
 			color: white;
 			background: #A9A9A9;
 		}
+
+		#imageCenter {
+			width: 10px;
+			height: 10px;
+			border: none;
+			padding: 145px;
+			margin: 145px;
+		}
 	</style>
 
 
 		<!--div for the earthquake map-->
+	
 		<div id='quakemap'></div>
-		<br/>
+
 		<button id='fit'>Center</button>
+
+		<a id='imageCenter' href="https://earthquake.usgs.gov/learn/topics/mag-intensity/magnitude-types.php" target="_blank"><img src="images/quakeLegend.jpg" alt="image of legend describing magType colors" /></a>
+
 
 			<script>
 				//Mapbox token for earthquake map
@@ -182,7 +195,7 @@
 						"paint": {
 							//make circles larger as the user zooms from z12 to z22
 							'circle-radius': {
-								'base': 3,
+								'base': 10,
 								'stops': [[12, 2], [22, 180]]
 							},
 							// color circles by mag type, using match expression from https://www.mapbox.com/mapbox-gl-js/example/data-driven-circle-colors/
@@ -190,12 +203,12 @@
 							'circle-color': [
 								'match',
 								['get', 'magType'],
-								'mb', '#fef0d9',
-								'mww', '#fdd49e',
-								'mwr', '#fdbb84',
-								'mb_lg', '#fc8d59',
-								'ml', '#e34a33',
-								'md', '#b30000',
+								'md', '#fef0d9',
+								'ml', '#fdd49e',
+								'mb_lg', '#fdbb84',
+								'mwr', '#fc8d59',
+								'mww', '#e34a33',
+								'mb', '#b30000',
 								/*other */ '#ccc'
 								]
 						}
@@ -205,7 +218,7 @@
 					//thanks to https://www.mapbox.com/mapbox-gl-js/example/popup-on-click/ & https://mseto-uw.github.io/mapbox_example.html
 					earthmap.on('click', 'quakes', function (e) {
 						var coordinates = e.features[0].geometry.coordinates.slice();
-						var description = "<p> Mag:_" + e.features[0].properties.mag + "<br> MagType:_" + e.features[0].properties.place.magType +"<br> Location:_" + e.features[0].properties.place + "<br> URL:_<a href='" + e.features[0].properties.url + "' target='_blank'>Click Here</a></p>";
+						var description = "<p> Mag:_" + e.features[0].properties.mag + "<br> MagType:_" + e.features[0].properties.magType +"<br> Location:_" + e.features[0].properties.place + "<br> URL:_<a href='" + e.features[0].properties.url + "' target='_blank'>Click Here</a></p>";
 						
 
 						while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
@@ -237,10 +250,11 @@
 
 
 			</script>
+	
 
 <!--second map below-->
-						<h2>second map</h2>
-						<p>second map</p>
+						<h2>Real-Time Climate Map</h2>
+						<p>To display the data use the toggle on the right side of the map. <br/> This map displays real-time climate data from<a href="http://www.cpc.ncep.noaa.gov/products/predictions/threats/threats.php" target="_blank"> NOAA.</a> The data is updated every week with 3-7 day climate predictions.</p>
 
 
 <!--had to map the second map a leaflet map, because of the omnivore-->
@@ -252,30 +266,20 @@
 
 
 			<script>
-					//style for each polygon
-					function snowstyle(feature) {
-						return {
-							fillColor: '#D6EAF8',
-							weight: 1,
-							opacity: 0.25,
-							color: 'white',
-							fillOpacity: 0.75
 
-						};
-					};
 
 			//add snow KML layer using Omnivore
 				var snowLayer = omnivore.kml('https://cors-anywhere.herokuapp.com/https://www.wpc.ncep.noaa.gov/kml/winwx/HPC_Day1-3_psnow_gt_04_latest.kml').on('ready', function() {
-						nextmap.fitBounds(snowLayer.getBounds());
+						//nextmap.fitBounds(snowLayer.getBounds());
 						this.setStyle({color: "white"});
 						snowLayer.eachLayer(function(snowLayer) {
 							snowLayer.bindPopup("<p>Feature: SnowLevel_" + snowLayer.feature.properties.name +"</p>");
 						});
 					})
 					//.addTo(nextmap);
-			//add 3-7 day precipiation
+			//add 3-7 day precipiation from http://www.cpc.ncep.noaa.gov/products/predictions/threats/threats.php
 				var precpLayer = omnivore.kml('https://cors-anywhere.herokuapp.com/http://www.cpc.ncep.noaa.gov/products/predictions/threats/prcp_D3_7.kml').on('ready', function(){
-					nextmap.fitBounds(precpLayer.getBounds());
+					//nextmap.fitBounds(precpLayer.getBounds());
 					this.setStyle({color: "#1082D3"});
 					precpLayer.eachLayer(function(layer) {
 						layer.bindPopup(layer.feature.properties.name);
@@ -283,9 +287,9 @@
 				})
 				//.addTo(nextmap);
 
-			//add 3-7 day temperature
+			//add 3-7 day temperature fromm http://www.cpc.ncep.noaa.gov/products/predictions/threats/threats.php
 				var tempLayer = omnivore.kml('https://cors-anywhere.herokuapp.com/http://www.cpc.ncep.noaa.gov/products/predictions/threats/temp_D3_7.kml').on('ready', function(){
-					nextmap.fitBounds(tempLayer.getBounds());
+					//nextmap.fitBounds(tempLayer.getBounds());
 					this.setStyle({color: "#ccffcc"});
 					tempLayer.eachLayer(function(layer) {
 						layer.bindPopup(layer.feature.properties.name);
