@@ -216,7 +216,7 @@
 				});
 			}
 
-			geojson = L.geoJson("JSON/minwagedensity.json", {
+			geojson = L.geoJson(statesData, {
 				style: style,
 				onEachFeature: onEachFeature
 			}).addTo(mwd);
