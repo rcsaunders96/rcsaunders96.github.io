@@ -111,6 +111,7 @@
 
 		<script>
 
+
 			//style for each polygon
 			function minwagestyle(feature) {
 				return {
@@ -134,7 +135,7 @@
 				//make the map
 				var minwage = new L.map("minwagemap", {
 					center: new L.LatLng(38.7, -100.22),
-					zoom: 4.3,
+					zoom: 3.2,
 					zoomControl: false,
 				});
 
@@ -150,7 +151,7 @@
 
 			//add minimun wage json to map
 			//Thanks to 
-			$.getJSON("JSON/USminwage.json", function(data){
+			$.getJSON("JSON/minwagedensity.json", function(data){
 				//add GeoJSON layer to the map once the file is loaded 
 				var mw = L.geoJson(data,{
 					style: minwagestyle});
