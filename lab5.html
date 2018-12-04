@@ -37,11 +37,12 @@
 
 		<style>
 
-		#minwagemap {height:90vh;background-color: black; padding: 0px;}
+		#minwagemap {height:70vh; background-color: black; padding: 0px;}
 		#secondmap {height:90vh;background-color: black; padding: 0px;}
 
 		.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
 		.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; 
+
 
 	
 	   </style>
@@ -100,23 +101,24 @@
 					</article> -->
 
 						<!-- Box -->
-						<h2>The Impact of Minimum Wage on the Homless and Impoverished Communities Across the United States</h2>
-						<p>.</p>
+						<h2>The Impact of Minimum Wage on the Homeless and Impoverished Communities Across the United States</h2>
+						<p></p>
 
 
 
 <!--Minimum Wage Map-->
 
-	<!--div for second map-->
+	<!--div for first map-->
 
 
-		<div id='minwagemap'></div>
+	<div id='minwagemap'></div>
 
 		<!--<script>-->
+			<!--The below Chloropleth code is thanks to https://leafletjs.com/examples/choropleth/ I also dowloaded the us states json from this website and added minimum wage data from https://www.paycor.com/resource-center/minimum-wage-by-state-and-2018-increases-->
 
-<script type="text/javascript" src="JSON/minwagedensity.json"></script>
+		<script type="text/javascript" src="JSON/minwagedensity.json"></script>
 
-<script type="text/javascript">
+		<script type="text/javascript">
 
 			//var mwd = L.map('minwagemap').setView([37.8, -96], 4);
 
@@ -128,7 +130,7 @@
 				//make the map
 				var mwd = new L.map("minwagemap", {
 					center: new L.LatLng(38.7, -100.22),
-					zoom: 3.2,
+					zoom: 4.0,
 					zoomControl: false,
 				});
 				mwd.scrollWheelZoom.disable();
@@ -252,66 +254,153 @@
 
 
 
+		</script>
+
+<!--Homelessness per 100,000 Map-->
+
+	<!--div for second map-->
 
 
+	<div id='homemap'></div>
 
+		<!--<script>-->
+			<!--The below Chloropleth code is thanks to https://leafletjs.com/examples/choropleth/ I also dowloaded the us states json from this website and added minimum wage data from https://www.paycor.com/resource-center/minimum-wage-by-state-and-2018-increases-->
 
+		<script type="text/javascript" src="JSON/homelessDens.json"></script>
 
+		<script type="text/javascript">
 
-/*
+			//var mwd = L.map('minwagemap').setView([37.8, -96], 4);
 
-			//style for each polygon
-			function minwagestyle(feature) {
-				return {
-					fillColor: '#D6EAF8',
-					weight: 1,
-					opacity: 0.25,
-					color: 'white',
-					fillOpacity: 0.75
-
-					};
-				};
-
-
-			//Basemap from http://leaflet-extras.github.io/leaflet-providers/preview/
-				var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+			var Esri_WorldGrayCanvas = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
 					attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
 					maxZoom: 16
 				});
 
-
 				//make the map
-				var minwage = new L.map("minwagemap", {
+				var home = new L.map("homemap", {
 					center: new L.LatLng(38.7, -100.22),
-					zoom: 3.2,
+					zoom: 4.0,
 					zoomControl: false,
 				});
-
-				minwage.scrollWheelZoom.disable();
+				home.scrollWheelZoom.disable();
 
 				//zoomHome
 				var zoomHome = L.Control.zoomHome({position: 'topright'});
-				zoomHome.addTo(minwage);
+				zoomHome.addTo(home);
 
 
 			//add the basemap to the map
-			minwage.addLayer(Esri_WorldGrayCanvas);
+			home.addLayer(Esri_WorldGrayCanvas);
 
-			//add minimun wage json to map
-			//Thanks to 
-			$.getJSON("JSON/minwagedensity.json", function(data){
-				//add GeoJSON layer to the map once the file is loaded 
-				var mw = L.geoJson(data,{
-					style: minwagestyle});
+			// control that shows state info on hover
+			var info = L.control();
 
-			minwage.addLayer(mw);
-			//boundary.bringToBack();
+			info.onAdd = function (home) {
+				this._div = L.DomUtil.create('div', 'info');
+				this.update();
+				return this._div;
+			};
 
-			});
+			info.update = function (props) {
+				this._div.innerHTML = '<h4>US Homelessness Population </br> & Rate 2017</h4>' +  (props ?
+					'<b>' + props.name + '</b><br />' + props.homeless + '</b><br/>' + props.homedens + ' /100,000 population'
+					: 'Hover over a state');
+			};
+
+			info.addTo(home);
 
 
-*/
+			// get color depending on population density value
+			function getColor(h) {
+				return h > 1000 ? '#800026' :
+						h > 500  ? '#BD0026' :
+						h > 400  ? '#E31A1C' :
+						h > 300  ? '#FC4E2A' :
+						h > 200   ? '#FD8D3C' :
+						h > 100   ? '#FEB24C' :
+						h > 10   ? '#FED976' :
+									'#FFEDA0';
+			}
 
+			function style(feature) {
+				return {
+					weight: 2,
+					opacity: 1,
+					color: 'white',
+					dashArray: '3',
+					fillOpacity: 0.7,
+					fillColor: getColor(feature.properties.homedens)
+				};
+			}
+
+			function highlightFeature(e) {
+				var layer = e.target;
+
+				layer.setStyle({
+					weight: 5,
+					color: '#666',
+					dashArray: '',
+					fillOpacity: 0.7
+				});
+
+				if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+					layer.bringToFront();
+				}
+
+				info.update(layer.feature.properties);
+			}
+
+			var geojson;
+
+			function resetHighlight(e) {
+				geojson.resetStyle(e.target);
+				info.update();
+			}
+
+			function zoomToFeature(e) {
+				home.fitBounds(e.target.getBounds());
+			}
+
+			function onEachFeature(feature, layer) {
+				layer.on({
+					mouseover: highlightFeature,
+					mouseout: resetHighlight,
+					click: zoomToFeature
+				});
+			}
+
+			geojson = L.geoJson(statesData, {
+				style: style,
+				onEachFeature: onEachFeature
+			}).addTo(home);
+
+			home.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+
+
+			var legend = L.control({position: 'bottomright'});
+
+			legend.onAdd = function (home) {
+
+				var div = L.DomUtil.create('div', 'info legend'),
+					grades = [0, 10, 100, 200, 300, 400, 500, 1000],
+					labels = [],
+					from, to;
+
+				for (var i = 0; i < grades.length; i++) {
+					from = grades[i];
+					to = grades[i + 1];
+
+					labels.push(
+						'<i style="background:' + getColor(from + 1) + '"></i> ' +
+						from + (to ? '&ndash;' + to : '+'));
+				}
+
+				div.innerHTML = labels.join('<br>');
+				return div;
+			};
+
+			legend.addTo(home);
 
 		</script>
 
