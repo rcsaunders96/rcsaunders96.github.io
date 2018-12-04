@@ -42,6 +42,8 @@
 
 		.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
 
+		.info1 { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info1 h4 { margin: 0 0 5px; color: #777; }
+
 		.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7;}
 
 
@@ -133,8 +135,8 @@
 
 				//make the map
 				var mwd = new L.map("minwagemap", {
-					center: new L.LatLng(38.7, -100.22),
-					zoom: 4.0,
+					center: new L.LatLng(42.7, -100.22),
+					zoom: 4.2,
 					zoomControl: false,
 				});
 				mwd.scrollWheelZoom.disable();
@@ -148,21 +150,21 @@
 			mwd.addLayer(Esri_WorldGrayCanvas);
 
 			// control that shows state info on hover
-			var info = L.control();
+			var info1 = L.control();
 
-			info.onAdd = function (mwd) {
-				this._div = L.DomUtil.create('div', 'info');
+			info1.onAdd = function (mwd) {
+				this._div = L.DomUtil.create('div', 'info1');
 				this.update();
 				return this._div;
 			};
 
-			info.update = function (props) {
-				this._div.innerHTML = '<h4>US Minimum Wage <br/> and Populaiton Density</h4>' +  (props ?
+			info1.update = function (props) {
+				this._div.innerHTML = '<h4>US Minimum Wage 2018 <br/> and Populaiton Density 2016</h4>' +  (props ?
 					'<b>' + props.name + '</b><br />' + props.minwage + '</b><br/>' + props.density + ' people / mi<sup>2</sup>'
 					: 'Hover over a state');
 			};
 
-			info.addTo(mwd);
+			info1.addTo(mwd);
 
 
 			// get color depending on population density value
@@ -202,14 +204,14 @@
 					layer.bringToFront();
 				}
 
-				info.update(layer.feature.properties);
+				info1.update(layer.feature.properties);
 			}
 
 			var geojson;
 
 			function resetHighlight(e) {
 				geojson.resetStyle(e.target);
-				info.update();
+				info1.update();
 			}
 
 			function zoomToFeature(e) {
@@ -229,14 +231,14 @@
 				onEachFeature: onEachFeature
 			}).addTo(mwd);
 
-			mwd.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+			mwd.attributionControl.addAttribution('| Population data &copy; <a href="http://census.gov/">US Census Bureau</a> | Minimum Wage data; <a href="https://www.paycor.com/resource-center/minimum-wage-by-state-and-2018-increases">Paycor</a>');
 
 
 			var legend1 = L.control({position: 'bottomright'});
 
 			legend1.onAdd = function (mwd) {
 
-				var div = L.DomUtil.create('div', 'info legend1'),
+				var div = L.DomUtil.create('div', 'info1 legend1'),
 					grades = [0, 10, 20, 50, 100, 200, 500, 1000],
 					labels = [],
 					from, to;
@@ -285,8 +287,8 @@
 
 				//make the map
 				var home = new L.map("homemap", {
-					center: new L.LatLng(38.7, -100.22),
-					zoom: 4.0,
+					center: new L.LatLng(42.7, -100.22),
+					zoom: 4.2,
 					zoomControl: false,
 				});
 				home.scrollWheelZoom.disable();
@@ -309,7 +311,7 @@
 			};
 
 			info.update = function (props) {
-				this._div.innerHTML = '<h4>US Homelessness Population </br> & Rate 2017</h4>' +  (props ?
+				this._div.innerHTML = '<h4>US Homeless Population Per State </br> & Rate of Homelessness per 100,000 pop 2017</h4>' +  (props ?
 					'<b>' + props.name + '</b><br />' + props.homeless + '</b><br/>' + props.homedens + ' /100,000 population'
 					: 'Hover over a state');
 			};
@@ -381,7 +383,7 @@
 				onEachFeature: onEachFeature
 			}).addTo(home);
 
-			home.attributionControl.addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
+			home.attributionControl.addAttribution('| Homelessness Data; <a href="https://www.usich.gov/tools-for-action/map/#fn[]=1500&fn[]=2900&fn[]=6100&fn[]=10100&fn[]=14100&all_types=true&year=2016&state=AL">US Interagency Council on Homelessness</a>');
 
 
 			var legend = L.control({position: 'bottomright'});
