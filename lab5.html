@@ -40,7 +40,25 @@
 		#minwagemap {height:70vh; background-color: black; padding: 0px;}
 		#homemap {height:70vh;background-color: black; padding: 0px;}
 
-		.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+		.image.fit {
+			display: block;
+			margin: 2.5rem 0;
+			width: 100%;
+		}
+		.image.fit:first-child {
+				margin-top: 0;
+		}
+
+		.image.fit img {
+				width: 100%;
+		}
+
+		.image.fit {
+				margin: 2rem 0;
+		}
+
+
+		.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px;} .info h4 { margin: 0 0 5px; color: #777;}
 
 		.info1 { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info1 h4 { margin: 0 0 5px; color: #777; }
 
@@ -93,22 +111,22 @@
 					<div id="main">
 
 						<!-- Featured Post -->
-						<!--	<article class="post featured">
+							<article class="post featured">
 								<header class="major">
-									<span class="date">October 23, 2018</span>
-									<h2><a href="#">Map<br />
-									</a></h2>
-									<p><br />
+									<span class="date">December 4, 2018</span>
+									<h2>Is the Current Minimum Wage Liveable?<br />
+									</h2>
+									<p>Moving beyond the current understanding of minimum wage to reveal a more holitstic view of minimum wage and the homelessness struggle across America.<br />
 									<br />
 									</p>
 								</header>
-								<a href="#" class="image main"><img src="images/" alt="" /></a>
+								<!--<a href="#" class="image main"><img src="images/" alt="" /></a>-->
 
-					</article> -->
+					</article>
 
 						<!-- Box -->
-						<h2>The Impact of Minimum Wage on the Homeless and Impoverished Communities Across the United States</h2>
-						<p></p>
+						<p style="text-align: center">“Every American – regardless of income – should have a fundamental right to safe, decent, and affordable housing” (NLIHC 2018). -U.S. Senator Bernie Sanders</p> 
+						<p>This is the opening line of the preface for the <a href="https://nlihc.org/oor" target="_blank">2018 National Low Income Housing Coalition, NLIHC, Out of Reach</a>. <br/>The United States of America has a federal minimum wage of $7.25, but each state is also allowed to pass legislation declaring their own personal state minimum wage. For 2018, twenty out of the 51 states, including Puerto Rico and Washington D.C., use the federally set minimum wage that is 37% of the U.S. Georgia and Wyoming have state minimum wages currently set at $5.15, $2.10 below the Federal minimum, which applies to all employers that are not subject to the Fair Labor Standards Act such as: amusement and recreational establishments, fishing operations, criminal investigators, and administrative employees (for a full list of exemptions click<a href="https://www.employmentlawhandbook.com/federal-employment-and-labor-laws/flsa/exemptions/" target="_blank"> here</a>).<br/>Overall, more than half of the United States has a minimum wage above $7.25. This is a step in the right direction, but it is important to understand the livability of minimum wage. The current prices for “fair market” rent even the highest minimum wage, $13.25 in Washington D.C., is not livable.  </p>
 
 
 
@@ -135,7 +153,7 @@
 
 				//make the map
 				var mwd = new L.map("minwagemap", {
-					center: new L.LatLng(42.7, -100.22),
+					center: new L.LatLng(43.6, -100.22),
 					zoom: 4.2,
 					zoomControl: false,
 				});
@@ -262,9 +280,23 @@
 
 		</script>
 
+<p style="text-align: center; font-size: 10px; padding: 0px">The interactive map above displays U.S. population density and the minimum wage for each state. There is no correlation between population density and minimum wage, but having the two sets of data helps create a picture of where people are spatially located in the U.S. and how much each state has set for their minimum wage.</p>
+
+<p>Affordability is defined by the NLIHC as “no more than 30% of a household’s gross income should be spent on rent and utilities. Households paying over 30% of their income are considered cost burdened” (<a href="https://nlihc.org/oor" target="_blank">NLIHC</a> pg. 1). This definition is a federal standard for calculating affordability and income. According to the NLIHC the minimum wage for 2018 would need to be $22.10/hour to afford a two-bedroom apartment without spending more than 30% of their income on rent. The Map below shows the wages needed in each state to afford a two-bedroom apartment in 2018. These calculations are based off current fair market rent and full-time work which is 2,080 hours per year or 40 hours a week for 52 weeks. It is important to also note that most full-time employee’s average 34.5 hours per week (<a href="https://nlihc.org/oor" target="_blank">NLIHC</a> pg.1).</p>
+
+<span class="image fit">
+	<img src="images/NLIHCwage.JPG" alt="image of US states wages need to afford two-bedroom rent from NLIHC 2018"/>
+</span>
+<p style="text-align: center; font-size: 10px; padding: 0px">The above map pictured is from the <a href="https://nlihc.org/sites/default/files/oor/OOR_2018_Factsheet.pdf" target="_blank">National Low Income Housing Coalition  2018 Out of Reach Fact Sheet</a>. This map displays how much each state’s minimum wage would need to be in order to afford rent for a fair market two bedroom apartment. </p>
+
+<p style="text-align: center;">“In 2017, 80.4 million workers age 16 and older in the United States were paid at hourly rates, representing 58.3 percent of all wage and salary workers” <a href="https://www.bls.gov/opub/reports/minimum-wage/2017/home.htm" target="_blank">(BLS Report)</a>.</p>
+
+<p>In September of 2018 the number of job openings was 7.009 million. It is unclear how many of those jobs are minimum wage. The current number of unemployed persons is 6.08 million. Another 1.5 million persons were marginally attached to the labor force. This means that these individuals looked for a job within the last 12 months and were not counted as unemployed because they had not searched for work in the 4 weeks preceding the survey (<a href="https://tradingeconomics.com/united-states/unemployment-rate" target="_blank">Trading Economics</a>). Among these individuals 506,000 are considered discouraged workers. These people are currently not looking for work because they believe there are no jobs available to them (<a href="https://tradingeconomics.com/united-states/unemployment-rate" target="_blank">Trading Economics</a>).</p>
+
+<p style="font-size: 18px; text-align: center"><b>There are nearly half a million Americans who are homeless many of which are working families. Another 11 million families pay more than half of their income towards rent and utilities.</b></p>
+
 <!--Homelessness per 100,000 Map-->
 
-				<p>lkjlklkdlsdldfn</p>
 
 	<!--div for second map-->
 
@@ -287,7 +319,7 @@
 
 				//make the map
 				var home = new L.map("homemap", {
-					center: new L.LatLng(42.7, -100.22),
+					center: new L.LatLng(43.6, -100.22),
 					zoom: 4.2,
 					zoomControl: false,
 				});
@@ -411,6 +443,9 @@
 			legend.addTo(home);
 
 		</script>
+		<p style="text-align: center; font-size: 10px; padding: 0px">The map above displays data from the US Interagency Council on Homelessness. The choropleth represents the rate of homelessness per 100,000 population in 2017. The rate shows a more accurate picture of homelessness across the United States. Look at both homeless population and rate as you hover over each state. In many cases the number of homeless people in a state may seem low but when normalized with a rate you start to see a different picture. <br/><b>Zoom in to look at D.C.</b></p>
+
+		<p>Being Homeless is not a choice, and there is no simple way to stop homelessness. However, increasing the minimum wage so that it reflects the current market can be a step in the right direction. Along with creating more equal distribution of knowledge and education across the school system and developing ways to better publicize job openings. There is no one solution because there is not just one problem, but by improving one area we can create a domino effect of change across all areas. It starts with one change, but it ends with many. <br/><br/>For more information on the wage gap visit the <a href="https://nlihc.org/oor" target="_blank">National Low Income Housing Coalition</a> </br>If you need help finding a job visit <a href="https://www.careeronestop.org/Toolkit/Careers/careers-most-openings.aspx" target="_blank">Career One Stop</a>, your source for career exploration, training & jobs.</p>
 
 
 				</div>
