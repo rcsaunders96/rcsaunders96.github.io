@@ -1,0 +1,15 @@
+
+#body {
+    padding: 8px;
+    margin: 8px;
+}
+
+#map{
+  background-color: lightgrey;
+  width: 50vw;
+  border: 50px;
+  padding: 86px;
+  margin: 25px;
+  height: 50vh;
+}
+
