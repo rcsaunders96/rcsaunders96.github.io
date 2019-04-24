@@ -47,11 +47,11 @@
         
     var map = L.map('map').setView([47.515272, -122.307668], 9.25)
 
-  
+
 
 
        //POPUP FOR SCHOOLS
-  L.circle([47.655548, -122.3032], 2000, {
+ /* L.circle([47.655548, -122.3032], 2000, {
     color: 'white',
     fillColor: '#fff',
     fillOpacity: 0.0
@@ -68,10 +68,10 @@
     fillColor: '#fff',
     fillOpacity: 0.0
   }).addTo(map).bindPopup("UW Bothell Campus");
-
+  */
 
 	// Basemap from https://carto.com
-		L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {	
+		L.tileLayer('http://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}.png', {	
   					attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
 					}).addTo(map)
 
